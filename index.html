@@ -388,12 +388,15 @@ form.addEventListener('submit', async (e) => {
   const key = 'rsvp:' + Date.now() + '-' + Math.random().toString(36).slice(2,8);
 
   try{
-    const result = await window.storage.set(key, JSON.stringify(entry), true);
-    if(!result){
-      alert('Hubo un problema al guardar tu confirmación. Probá de nuevo.');
-      return;
+    if (window.storage) {
+      try {
+        await window.storage.set(key, JSON.stringify(entry), true);
+      } catch(storageErr) {
+        // window.storage solo funciona dentro de Claude; fuera de ahí lo ignoramos
+      }
     }
 
+    let mailOk = true;
     if (window.emailjs) {
       try {
         await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
@@ -403,8 +406,13 @@ form.addEventListener('submit', async (e) => {
           fecha: new Date(entry.fecha).toLocaleString('es-AR')
         });
       } catch(mailErr) {
-        // La confirmación ya quedó guardada aunque el mail falle
+        mailOk = false;
       }
+    }
+
+    if (!mailOk) {
+      alert('Hubo un problema al enviar tu confirmación. Probá de nuevo.');
+      return;
     }
 
     formCard.querySelector('h2').style.display = 'none';
@@ -412,7 +420,7 @@ form.addEventListener('submit', async (e) => {
     form.style.display = 'none';
     successMsg.style.display = 'block';
   } catch(err){
-    alert('Hubo un problema al guardar tu confirmación. Probá de nuevo.');
+    alert('Hubo un problema al enviar tu confirmación. Probá de nuevo.');
   }
 });
 
@@ -467,6 +475,10 @@ toggleAdmin.addEventListener('click', () => {
   if(!showing) loadConfirmations();
 });
 refreshAdmin.addEventListener('click', loadConfirmations);
+
+if (!window.storage) {
+  toggleAdmin.style.display = 'none';
+}
 </script>
 </body>
 </html>
