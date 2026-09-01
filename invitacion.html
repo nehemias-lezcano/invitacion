@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nehemías & Karina - Nuestra Boda</title>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+  :root{
+    --rose:#c98a92;
+    --rose-dark:#8f4d55;
+    --cream:#fbf6f2;
+    --gold:#b98a4e;
+    --ink:#3a2e2e;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--cream);
+    color: var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:560px;
+    margin:0 auto;
+    padding:0 20px 60px;
+  }
+  header{
+    text-align:center;
+    padding:70px 20px 40px;
+  }
+  .eyebrow{
+    letter-spacing:4px;
+    font-size:12px;
+    text-transform:uppercase;
+    color:var(--rose-dark);
+    margin-bottom:18px;
+  }
+  h1{
+    font-size:40px;
+    font-weight:400;
+    margin:0;
+    line-height:1.25;
+    color:var(--rose-dark);
+  }
+  h1 span{
+    display:block;
+    font-size:20px;
+    font-style:italic;
+    color:var(--gold);
+    margin:10px 0;
+  }
+  .divider{
+    width:60px;
+    height:1px;
+    background:var(--gold);
+    margin:28px auto;
+  }
+  .details{
+    background:#fff;
+    border-radius:16px;
+    padding:32px 26px;
+    margin:0 0 34px;
+    box-shadow:0 8px 30px rgba(143,77,85,0.08);
+    text-align:center;
+  }
+  .detail-row{
+    padding:14px 0;
+    border-bottom:1px solid #f0e4e0;
+  }
+  .detail-row:last-child{border-bottom:none;}
+  .detail-label{
+    font-size:11px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:6px;
+  }
+  .detail-value{
+    font-size:17px;
+    color:var(--ink);
+  }
+  .msg{
+    text-align:center;
+    font-size:15px;
+    line-height:1.8;
+    color:#6b5a5a;
+    margin:0 0 40px;
+    padding:0 10px;
+  }
+  .card{
+    background:#fff;
+    border-radius:16px;
+    padding:30px 26px;
+    box-shadow:0 8px 30px rgba(143,77,85,0.08);
+  }
+  .card h2{
+    text-align:center;
+    font-weight:400;
+    font-size:22px;
+    color:var(--rose-dark);
+    margin:0 0 6px;
+  }
+  .card .sub{
+    text-align:center;
+    font-size:13px;
+    color:#9a8a8a;
+    margin:0 0 26px;
+  }
+  label{
+    display:block;
+    font-size:12px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:var(--rose-dark);
+    margin:18px 0 6px;
+  }
+  input[type=text], select, input[type=number]{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid #e3d3ce;
+    border-radius:8px;
+    font-family:inherit;
+    font-size:15px;
+    background:#fffefe;
+    color:var(--ink);
+  }
+  input:focus, select:focus{
+    outline:none;
+    border-color:var(--rose);
+  }
+  .companion-block{
+    background:var(--cream);
+    border-radius:10px;
+    padding:14px 16px 4px;
+    margin-top:16px;
+  }
+  .companion-title{
+    font-size:12px;
+    color:var(--gold);
+    letter-spacing:1px;
+    text-transform:uppercase;
+    margin-bottom:4px;
+  }
+  .btn{
+    width:100%;
+    margin-top:26px;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    background:var(--rose-dark);
+    color:#fff;
+    font-size:15px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    cursor:pointer;
+    font-family:inherit;
+  }
+  .btn:hover{ background:#733e45; }
+  .btn.secondary{
+    background:transparent;
+    color:var(--rose-dark);
+    border:1px solid var(--rose-dark);
+  }
+  .btn.secondary:hover{ background:#f6e9e7; }
+  .error{
+    color:#a33;
+    font-size:13px;
+    margin-top:6px;
+    display:none;
+  }
+  .success{
+    display:none;
+    text-align:center;
+    padding:30px 10px;
+  }
+  .success .check{
+    font-size:44px;
+    color:var(--rose-dark);
+    margin-bottom:10px;
+  }
+  .success h3{
+    font-weight:400;
+    color:var(--rose-dark);
+    margin:0 0 8px;
+  }
+  .success p{
+    color:#8a7a7a;
+    font-size:14px;
+  }
+  footer{
+    text-align:center;
+    margin-top:40px;
+  }
+  .admin-link{
+    background:none;
+    border:none;
+    color:#b7a6a6;
+    font-size:12px;
+    text-decoration:underline;
+    cursor:pointer;
+    font-family:inherit;
+  }
+  .admin-panel{
+    display:none;
+    margin-top:20px;
+    background:#fff;
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 8px 30px rgba(143,77,85,0.08);
+  }
+  .admin-panel h2{
+    font-size:18px;
+    font-weight:400;
+    color:var(--rose-dark);
+    margin:0 0 4px;
+  }
+  .admin-stats{
+    font-size:13px;
+    color:#8a7a7a;
+    margin-bottom:16px;
+  }
+  .guest-row{
+    padding:10px 0;
+    border-bottom:1px solid #f0e4e0;
+    font-size:14px;
+  }
+  .guest-row .main-name{
+    font-weight:bold;
+    color:var(--ink);
+  }
+  .guest-row .companions{
+    color:#8a7a7a;
+    font-size:13px;
+    margin-top:3px;
+  }
+  .empty-note{
+    text-align:center;
+    color:#b7a6a6;
+    font-size:13px;
+    padding:20px 0;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Nos casamos</div>
+    <h1>Nehemías <span>&</span> Karina</h1>
+  </header>
+
+  <div class="details">
+    <div class="detail-row">
+      <div class="detail-label">Civil</div>
+      <div class="detail-value">Viernes 20 de noviembre, 11:00 hs</div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label">Fecha</div>
+      <div class="detail-value">Domingo 22 de noviembre, 11:30 hs</div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label">Lugar</div>
+      <div class="detail-value">Casona Rosada</div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label">Dirección</div>
+      <div class="detail-value">Eugenia Ottone de Asconape 480<br>Paso del Rey, Buenos Aires</div>
+    </div>
+  </div>
+
+  <p class="msg">Con mucha alegría los invitamos a acompañarnos en el día en que unimos nuestras vidas. Por favor confirmá tu asistencia antes de esa fecha para poder organizar todo con cariño.</p>
+
+  <div class="card" id="formCard">
+    <h2>Confirmar asistencia</h2>
+    <div class="sub">Completá tus datos y los de tus acompañantes</div>
+
+    <form id="rsvpForm">
+      <label for="nombre">Tu nombre y apellido</label>
+      <input type="text" id="nombre" placeholder="Ej: Juan Gómez" autocomplete="off">
+      <div class="error" id="err-nombre">Ingresá tu nombre y apellido.</div>
+
+      <label for="acompanantes">Cantidad de acompañantes (sin contarte a vos)</label>
+      <select id="acompanantes">
+        <option value="0">Voy solo/a</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+      </select>
+
+      <div id="companionFields"></div>
+
+      <button type="submit" class="btn">Confirmar asistencia</button>
+    </form>
+
+    <div class="success" id="successMsg">
+      <div class="check">✓</div>
+      <h3>¡Confirmación recibida!</h3>
+      <p>Gracias por confirmar. ¡Los esperamos con mucha alegría!</p>
+    </div>
+  </div>
+
+  <footer>
+    <button class="admin-link" id="toggleAdmin">Panel del organizador</button>
+  </footer>
+
+  <div class="admin-panel" id="adminPanel">
+    <h2>Confirmaciones recibidas</h2>
+    <div class="admin-stats" id="adminStats">Cargando...</div>
+    <div id="guestList"></div>
+    <button class="btn secondary" id="refreshAdmin" style="margin-top:16px;">Actualizar lista</button>
+  </div>
+
+</div>
+
+<script>
+if (window.emailjs) {
+  emailjs.init({ publicKey: 'ikIZnM49aNPWaKZOL' });
+}
+
+const EMAILJS_SERVICE_ID = 'service_5vgw5es';
+const EMAILJS_TEMPLATE_ID = 'template_so9vjxt';
+
+const companionSelect = document.getElementById('acompanantes');
+const companionFields = document.getElementById('companionFields');
+const form = document.getElementById('rsvpForm');
+const errNombre = document.getElementById('err-nombre');
+const nombreInput = document.getElementById('nombre');
+const formCard = document.getElementById('formCard');
+const successMsg = document.getElementById('successMsg');
+
+function renderCompanionFields(){
+  const n = parseInt(companionSelect.value, 10);
+  companionFields.innerHTML = '';
+  for(let i=1; i<=n; i++){
+    const block = document.createElement('div');
+    block.className = 'companion-block';
+    block.innerHTML = `
+      <div class="companion-title">Acompañante ${i}</div>
+      <input type="text" class="companion-input" data-idx="${i}" placeholder="Nombre y apellido" autocomplete="off">
+      <div class="error err-comp" data-idx="${i}">Completá el nombre de este acompañante.</div>
+    `;
+    companionFields.appendChild(block);
+  }
+}
+companionSelect.addEventListener('change', renderCompanionFields);
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  let valid = true;
+
+  const nombre = nombreInput.value.trim();
+  if(!nombre){
+    errNombre.style.display = 'block';
+    valid = false;
+  } else {
+    errNombre.style.display = 'none';
+  }
+
+  const companionInputs = document.querySelectorAll('.companion-input');
+  const companions = [];
+  companionInputs.forEach(inp => {
+    const val = inp.value.trim();
+    const idx = inp.dataset.idx;
+    const errEl = document.querySelector(`.err-comp[data-idx="${idx}"]`);
+    if(!val){
+      errEl.style.display = 'block';
+      valid = false;
+    } else {
+      errEl.style.display = 'none';
+      companions.push(val);
+    }
+  });
+
+  if(!valid) return;
+
+  const entry = {
+    nombre,
+    acompanantes: companions,
+    totalPersonas: 1 + companions.length,
+    fecha: new Date().toISOString()
+  };
+
+  const key = 'rsvp:' + Date.now() + '-' + Math.random().toString(36).slice(2,8);
+
+  try{
+    if (window.storage) {
+      try {
+        await window.storage.set(key, JSON.stringify(entry), true);
+      } catch(storageErr) {
+        // window.storage solo funciona dentro de Claude; fuera de ahí lo ignoramos
+      }
+    }
+
+    let mailOk = true;
+    if (window.emailjs) {
+      try {
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          nombre: entry.nombre,
+          total_personas: entry.totalPersonas,
+          acompanantes: companions.length ? companions.join(', ') : 'ninguno',
+          fecha: new Date(entry.fecha).toLocaleString('es-AR')
+        });
+      } catch(mailErr) {
+        mailOk = false;
+      }
+    }
+
+    if (!mailOk) {
+      alert('Hubo un problema al enviar tu confirmación. Probá de nuevo.');
+      return;
+    }
+
+    formCard.querySelector('h2').style.display = 'none';
+    formCard.querySelector('.sub').style.display = 'none';
+    form.style.display = 'none';
+    successMsg.style.display = 'block';
+  } catch(err){
+    alert('Hubo un problema al enviar tu confirmación. Probá de nuevo.');
+  }
+});
+
+// Admin panel
+const toggleAdmin = document.getElementById('toggleAdmin');
+const adminPanel = document.getElementById('adminPanel');
+const adminStats = document.getElementById('adminStats');
+const guestList = document.getElementById('guestList');
+const refreshAdmin = document.getElementById('refreshAdmin');
+
+async function loadConfirmations(){
+  adminStats.textContent = 'Cargando...';
+  guestList.innerHTML = '';
+  try{
+    const listResult = await window.storage.list('rsvp:', true);
+    const keys = (listResult && listResult.keys) ? listResult.keys : [];
+    if(keys.length === 0){
+      adminStats.textContent = '0 confirmaciones todavía.';
+      guestList.innerHTML = '<div class="empty-note">Todavía no hay confirmaciones.</div>';
+      return;
+    }
+    const entries = [];
+    for(const k of keys){
+      try{
+        const r = await window.storage.get(k, true);
+        if(r && r.value){
+          entries.push(JSON.parse(r.value));
+        }
+      }catch(e){}
+    }
+    entries.sort((a,b) => new Date(a.fecha) - new Date(b.fecha));
+    let totalPersonas = 0;
+    guestList.innerHTML = entries.map(e => {
+      totalPersonas += e.totalPersonas;
+      const comp = e.acompanantes && e.acompanantes.length
+        ? 'Con: ' + e.acompanantes.join(', ')
+        : 'Va solo/a';
+      return `<div class="guest-row">
+        <div class="main-name">${e.nombre}</div>
+        <div class="companions">${comp} · ${e.totalPersonas} persona(s)</div>
+      </div>`;
+    }).join('');
+    adminStats.textContent = entries.length + ' confirmación(es) · ' + totalPersonas + ' persona(s) en total';
+  } catch(err){
+    adminStats.textContent = 'No se pudo cargar la lista.';
+  }
+}
+
+toggleAdmin.addEventListener('click', () => {
+  const showing = adminPanel.style.display === 'block';
+  adminPanel.style.display = showing ? 'none' : 'block';
+  if(!showing) loadConfirmations();
+});
+refreshAdmin.addEventListener('click', loadConfirmations);
+
+if (!window.storage) {
+  toggleAdmin.style.display = 'none';
+}
+</script>
+</body>
+</html>
